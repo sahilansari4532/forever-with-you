@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forever With You 💗</title>
+
+```
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #ffd6e7, #fff0f5, #ffc2dc);
+        color: #a32359;
+        padding: 16px;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 420px;
+        padding: 30px 20px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.92);
+        border-radius: 25px;
+        box-shadow: 0 10px 40px rgba(180, 40, 100, 0.15);
+        position: relative;
+        z-index: 1;
+    }
+
+    .heart {
+        font-size: 65px;
+        animation: heartbeat 1s infinite;
+    }
+
+    h1 {
+        font-size: 30px;
+        line-height: 1.3;
+        margin: 15px 0;
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 1.7;
+        color: #9d5572;
+    }
+
+    .buttons {
+        position: relative;
+        width: 100%;
+        height: 110px;
+        margin-top: 20px;
+    }
+
+    button {
+        border: none;
+        border-radius: 12px;
+        padding: 13px 23px;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+        touch-action: manipulation;
+    }
+
+    #yes {
+        background: #ed4b87;
+        color: white;
+        box-shadow: 0 5px 15px rgba(237, 75, 135, 0.25);
+    }
+
+    #no {
+        position: absolute;
+        left: 58%;
+        top: 0;
+        background: #ffe4ee;
+        color: #a32359;
+        border: 1px solid #f5b4cd;
+        white-space: nowrap;
+    }
+
+    #result {
+        display: none;
+        margin-top: 22px;
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 1.7;
+        animation: pop 0.5s ease;
+    }
+
+    .floating-heart {
+        position: fixed;
+        bottom: -40px;
+        pointer-events: none;
+        animation: floatUp 5s linear forwards;
+        z-index: 2;
+    }
+
+    @keyframes heartbeat {
+        50% {
+            transform: scale(1.15);
+        }
+    }
+
+    @keyframes floatUp {
+        to {
+            transform: translateY(-110vh) rotate(25deg);
+            opacity: 0;
+        }
+    }
+
+    @keyframes pop {
+        from {
+            opacity: 0;
+            transform: scale(0.7);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @media (max-width: 380px) {
+        h1 {
+            font-size: 26px;
+        }
+
+        .card {
+            padding: 25px 15px;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .heart {
+            animation: none;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<main class="card">
+
+    <div class="heart">💗</div>
+
+    <h1 id="question">Will You Be Mine Forever?</h1>
+
+    <p>
+        You make my world more beautiful every day. 🥹
+        <br>
+        So, I have one little question for you...
+    </p>
+
+    <div class="buttons" id="buttons">
+
+        <button id="yes">Yes 💖</button>
+
+        <button id="no">No 🙈</button>
+
+    </div>
+
+    <div id="result">
+        YAYYYYY! 🥹💗
+        <br>
+        You just made me the happiest person!
+        <br>
+        Forever with you. ❤️✨
+    </div>
+
+</main>
+
+<script>
+    const yesButton = document.getElementById("yes");
+    const noButton = document.getElementById("no");
+    const buttonsArea = document.getElementById("buttons");
+    const question = document.getElementById("question");
+    const result = document.getElementById("result");
+
+    function moveNoButton() {
+        const maxX = buttonsArea.clientWidth - noButton.offsetWidth;
+        const maxY = buttonsArea.clientHeight - noButton.offsetHeight;
+
+        if (maxX <= 0 || maxY <= 0) {
+            return;
+        }
+
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+
+        noButton.style.left = x + "px";
+        noButton.style.top = y + "px";
+    }
+
+    noButton.addEventListener("pointerenter", moveNoButton);
+
+    noButton.addEventListener("click", function(event) {
+        event.preventDefault();
+        moveNoButton();
+    });
+
+    noButton.addEventListener("touchstart", function(event) {
+        event.preventDefault();
+        moveNoButton();
+    }, { passive: false });
+
+    yesButton.addEventListener("click", function() {
+        question.textContent = "I Knew You'd Say Yes! 🥹💖";
+
+        buttonsArea.style.display = "none";
+        result.style.display = "block";
+
+        for (let i = 0; i < 35; i++) {
+            setTimeout(createHeart, i * 100);
+        }
+    });
+
+    function createHeart() {
+        const heart = document.createElement("span");
+
+        heart.className = "floating-heart";
+
+        const hearts = ["💗", "💖", "💕", "❤️", "✨"];
+
+        heart.textContent =
+            hearts[Math.floor(Math.random() * hearts.length)];
+
+        heart.style.left = Math.random() * 100 + "vw";
+
+        heart.style.fontSize =
+            (18 + Math.random() * 25) + "px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(function() {
+            heart.remove();
+        }, 5000);
+    }
+</script>
+```
+
+</body>
+</html>
